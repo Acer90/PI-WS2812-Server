@@ -10,8 +10,8 @@ from Driver import *
 from Driver.lcddriver import lcd
 
 def in2outWipe(config):
-    if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relai', 'GPIO'))> 0):
-        GPIO.output(int(Settings.CONFIG.get('Relai', 'GPIO')), GPIO.HIGH) # an 
+    if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
+        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
 
     if('speed' in config): 
@@ -58,6 +58,6 @@ def in2outWipe(config):
                 time.sleep(wtime)
                 
 
-    if(int(Settings.CONFIG.get('Relai', 'GPIO'))> 0 and config['cmd'] == "stop"):
-        GPIO.output(int(Settings.CONFIG.get('Relai', 'GPIO')), GPIO.LOW) 
+    if(int(Settings.CONFIG.get('Relais', 'GPIO'))> 0 and config['cmd'] == "stop"):
+        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.LOW) 
     Settings.POWER_STRIP = False

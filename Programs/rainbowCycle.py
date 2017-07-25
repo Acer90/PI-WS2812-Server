@@ -8,8 +8,8 @@ import Settings
 from Driver.lcddriver import lcd
         
 def rainbowCycle (config):
-    if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relai', 'GPIO'))> 0):
-        GPIO.output(int(Settings.CONFIG.get('Relai', 'GPIO')), GPIO.HIGH) # an 
+    if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
+        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
 
     wait_ms=20 

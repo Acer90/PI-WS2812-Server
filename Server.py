@@ -90,8 +90,8 @@ def clientthread(conn):
                             Settings.thread_Programs.join()
 
                     else:
-                        if(int(Settings.CONFIG.get('Relai', 'GPIO'))> 0):
-                            GPIO.output(int(Settings.CONFIG.get('Relai', 'GPIO')), GPIO.LOW) # 
+                        if(int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
+                            GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.LOW) # 
 
                         Settings.POWER_STRIP = False
                     conn.sendall('OK')
@@ -119,8 +119,8 @@ def clientthread(conn):
                             Settings.thread_Programs.daemon = True
                             Settings.thread_Programs.start()
                     else:
-                        if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relai', 'GPIO'))> 0):
-                            GPIO.output(int(Settings.CONFIG.get('Relai', 'GPIO')), GPIO.HIGH) # an 
+                        if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
+                            GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
                         Settings.POWER_STRIP = True
                         
                         for key, value in color.iteritems():
