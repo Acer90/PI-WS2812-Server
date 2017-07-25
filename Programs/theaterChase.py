@@ -8,7 +8,7 @@ sys.path.insert(0, './..')
 import Settings
 from Driver.lcddriver import lcd
         
-def theaterChase(config):
+def theaterChase(config, strip):
         if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
             GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
         Settings.POWER_STRIP = True
@@ -20,9 +20,9 @@ def theaterChase(config):
         while 1:
             for j in range(iterations):
                 for q in range(3):
-                    for i in range(0, Settings.STRIP.numPixels(), 3):
-                        Settings.STRIP.setPixelColor(i+q, color)
-                    Settings.STRIP.show()
+                    for i in range(0, strip.numPixels(), 3):
+                        strip.setPixelColor(i+q, color)
+                    strip.show()
                     time.sleep(wait_ms/1000.0)
-                    for i in range(0, Settings.STRIP.numPixels(), 3):
-                        Settings.STRIP.setPixelColor(i+q, 0)
+                    for i in range(0, strip.numPixels(), 3):
+                        strip.setPixelColor(i+q, 0)

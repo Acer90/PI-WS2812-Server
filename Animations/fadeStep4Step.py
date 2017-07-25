@@ -11,7 +11,7 @@ from Driver import *
 from Driver.lcddriver import lcd
 
 
-def fadeStep4Step(config):
+def fadeStep4Step(config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
         GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
@@ -27,10 +27,10 @@ def fadeStep4Step(config):
     dif = 0
     diflist = {}
 
-    for i in range(Settings.STRIP.numPixels()):
+    for i in range(strip.numPixels()):
         if(i in colordata):
             c1 = ipsymcon.ColorToRGB(colordata[i])
-            c2 = sub_neopixel.ColortoRGB(Settings.STRIP.getPixelColor(i))
+            c2 = sub_neopixel.ColortoRGB(strip.getPixelColor(i))
 
             r_dif = c1["red"] - c2["red"]
             g_dif = c1["green"] - c2["green"]
@@ -55,14 +55,14 @@ def fadeStep4Step(config):
 
     for s in range(1, int(floor(steps + 1))):
         time1 = time.time()
-        for i in range(Settings.STRIP.numPixels()):
+        for i in range(strip.numPixels()):
             if(i in colordata):
                 new_r = diflist[i]["startR"] + (s * diflist[i]["red"])
                 new_g = diflist[i]["startG"] + (s * diflist[i]["green"])
                 new_b = diflist[i]["startB"] + (s * diflist[i]["blue"])
 
-                Settings.STRIP.setPixelColor(i, Color(int(floor(new_r)), int(floor(new_g)), int(floor(new_b))))
-                Settings.STRIP.show()
+                strip.setPixelColor(i, Color(int(floor(new_r)), int(floor(new_g)), int(floor(new_b))))
+                strip.show()
         time2 = time.time()
         span = time2-time1
         #print("%s seconds"%(span))

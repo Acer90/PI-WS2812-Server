@@ -8,7 +8,7 @@ sys.path.insert(0, './..')
 import Settings
 from Driver.lcddriver import lcd
 
-def rainbow (config):
+def rainbow (config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
         GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
@@ -18,9 +18,9 @@ def rainbow (config):
         
     while 1:
         for j in range(256*iterations):
-            for i in range(Settings.STRIP.numPixels()):
-                Settings.STRIP.setPixelColor(i, wheel((i+j) & 255))
-            Settings.STRIP.show()
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, wheel((i+j) & 255))
+            strip.show()
             time.sleep(wait_ms/1000.0)
 
 def wheel(pos):

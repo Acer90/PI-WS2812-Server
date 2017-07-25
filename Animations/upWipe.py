@@ -8,7 +8,7 @@ import Settings
 from Driver import *
 from Driver.lcddriver import lcd
         
-def upWipe (config):
+def upWipe (config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
         GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
@@ -18,15 +18,15 @@ def upWipe (config):
     else: 
         speed = 500
 
-    wait_ms = float(speed / Settings.STRIP.numPixels())
+    wait_ms = float(speed / strip.numPixels())
     colordata = ipsymcon.ReadColorData(str(config['data']))
         
-    for i in range(Settings.STRIP.numPixels()):
+    for i in range(strip.numPixels()):
         if(i in colordata):
             time1 = time.time()
             c = ipsymcon.ColorToRGB(colordata[i])
-            Settings.STRIP.setPixelColor(i, Color(c["red"], c["green"], c["blue"]))
-            Settings.STRIP.show()
+            strip.setPixelColor(i, Color(c["red"], c["green"], c["blue"]))
+            strip.show()
 
             time2 = time.time()
             span = time2-time1

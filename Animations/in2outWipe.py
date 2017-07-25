@@ -9,7 +9,7 @@ import Settings
 from Driver import *
 from Driver.lcddriver import lcd
 
-def in2outWipe(config):
+def in2outWipe(config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
         GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
     Settings.POWER_STRIP = True
@@ -19,15 +19,15 @@ def in2outWipe(config):
     else: 
         speed = 500
 
-    wait_ms = float(speed / (Settings.STRIP.numPixels() / 2))
+    wait_ms = float(speed / (strip.numPixels() / 2))
     colordata = ipsymcon.ReadColorData(str(config['data']))
 
-    if Settings.STRIP.numPixels() % 2: #ungrade 
-        half = (Settings.STRIP.numPixels() - 1) / 2
+    if strip.numPixels() % 2: #ungrade 
+        half = (strip.numPixels() - 1) / 2
         startp = half
         startm = half
     else: #grade 
-        half = (Settings.STRIP.numPixels() - 1) / 2
+        half = (strip.numPixels() - 1) / 2
         startp = half + 1
         startm = half
         
@@ -39,16 +39,16 @@ def in2outWipe(config):
 
         if(pixel1 in colordata):
             c = ipsymcon.ColorToRGB(colordata[pixel1])
-            Settings.STRIP.setPixelColor(pixel1, Color(c["red"], c["green"], c["blue"]))
+            strip.setPixelColor(pixel1, Color(c["red"], c["green"], c["blue"]))
             change = True
 
         if(pixel2 in colordata and pixel1 != pixel2):
             c = ipsymcon.ColorToRGB(colordata[pixel2])
-            Settings.STRIP.setPixelColor(pixel2, Color(c["red"], c["green"], c["blue"]))
+            strip.setPixelColor(pixel2, Color(c["red"], c["green"], c["blue"]))
             change = True
 
         if (change == True):
-            Settings.STRIP.show()
+            strip.show()
             time2 = time.time()
             span = time2-time1
             #print("%s seconds"%(span))
