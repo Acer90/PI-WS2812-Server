@@ -1,6 +1,5 @@
 import ConfigParser
-from Programs import *
-from multiprocessing import Process, Value, Array, Manager
+from multiprocessing import Process, Manager
 from collections import defaultdict
 
 def init():
@@ -11,9 +10,10 @@ def init():
     global DEBUG, HOST, PORT, INIT_COMPLETE, EXIT, RELAITEST
     DEBUG = False
     INIT_COMPLETE = False
-    HOST = ''   # Symbolic name meaning all available interfaces
+    HOST = ''
     PORT = int(CONFIG.get('Server', 'Port'))
     EXIT = False
+    RELAITEST = False
 
     global POWER_STRIP, PROGRAM, STRIP, PIXELCOLORDATA
     POWER_STRIP = False
