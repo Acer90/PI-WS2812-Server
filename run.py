@@ -59,14 +59,15 @@ thread_SocketServer.start()
 print('Initialized Complete')
 Settings.INIT_COMPLETE = True
 
-try:
-    raw_input("Press Enter to Close...")
-except (KeyboardInterrupt, SystemExit):
-    print ('Stop Server!!!')
+if "ASSERVICE" not in str(sys.argv).upper():
+    try:
+        raw_input("Press Enter to Close...")
+    except (KeyboardInterrupt, SystemExit):
+        print('Stop Server!!!')
 
-thread_SocketServer._Thread__stop()
-if(Settings.thread_Programs.is_alive()):
-    Settings.thread_Programs.terminate()
-sys.exit(1)
+    thread_SocketServer._Thread__stop()
+    if(Settings.thread_Programs.is_alive()):
+        Settings.thread_Programs.terminate()
+    sys.exit(1)
 
-Settings.EXIT = True
+    Settings.EXIT = True
