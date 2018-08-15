@@ -71,3 +71,6 @@ if "ASSERVICE" not in str(sys.argv).upper():
     sys.exit(1)
 
     Settings.EXIT = True
+else:
+    while 1:
+        time.sleep(60)
