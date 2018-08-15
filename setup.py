@@ -45,7 +45,7 @@ if "INSTALL" == mode:
     cwd = os.getcwd()
     print("Install/Upgrade Python Packages")
 
-    packages = ['', '', '']
+    packages = ['gitpython']
     for package in packages:
         pip.main(['install', '--upgrade', package])
 
