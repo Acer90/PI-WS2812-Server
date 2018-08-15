@@ -97,7 +97,7 @@ if "INSTALL" == mode:
         file_exist = True
         Config.read(cwd+"/setup.ini")
     else:
-        setupfile = open(cwd + "/setup.ini", 'w')
+        setupfile = open(cwd + "/Setup.ini", 'w')
 
     if (not Config.has_section("Server")): Config.add_section("Server")
     if (not Config.has_section("Strip")): Config.add_section("Strip")
@@ -148,7 +148,7 @@ if "INSTALL" == mode:
 
     Config.set('Relais', 'GPIO', ini_Relais_gpio)
 
-    with open(cwd+"/setup.ini", 'wb') as configfile:
+    with open(cwd+"/Setup.ini", 'wb') as configfile:
         Config.write(configfile)
 
 

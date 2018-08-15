@@ -1,9 +1,12 @@
 import ConfigParser
+import os
 from multiprocessing import Process, Manager
 from collections import defaultdict
 
 def init():
     global CONFIG
+    print os.getcwd()+"<---OK"
+
     CONFIG = ConfigParser.ConfigParser()
     CONFIG.read('Setup.ini')
 
