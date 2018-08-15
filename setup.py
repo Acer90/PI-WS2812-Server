@@ -21,6 +21,9 @@ elif "REMOVE" in str(sys.argv).upper():
     print "Removing Server"
     mode = "DEL"
 
+if "DIR" in str(sys.argv).upper():
+    i = sys.argv.index("bar")
+
 if mode == "":
     while 1:
         input_val = raw_input("Select Mode[INSTALL or 1 | UPDATE or 2 | REMOVE or 3]: ").upper()
@@ -47,18 +50,18 @@ if "INSTALL" == mode:
         pip.main(['install', '--upgrade', package])
 
     try:
-        _ = git.Repo("/home/pythonapp/ws2812server/test").git_dir
-        repo = git.Repo.init("/home/pythonapp/ws2812server/test")
+        _ = git.Repo(cwd).git_dir
+        repo = git.Repo.init(cwd)
         result = repo.git.pull()
         print(result)
     except git.exc.InvalidGitRepositoryError:
         print("Downloading Files")
-        repo = git.Repo.clone_from("https://github.com/Acer90/PI-WS2812-Server.git", "/home/pythonapp/ws2812server/test")
+        repo = git.Repo.clone_from("https://github.com/Acer90/PI-WS2812-Server.git", cwd)
 
 elif "UPDATE" == mode:
     cwd = os.getcwd()
 
-    repo = git.Repo.init("/home/pythonapp/ws2812server/test")
+    repo = git.Repo.init(cwd)
     for item in repo.index.diff(None):
         print item.a_path
 
