@@ -9,6 +9,7 @@ import ConfigParser
 
 print(str(sys.argv).upper())
 
+packages = ['gitpython']
 mode = ""
 
 if "INSTALL" in str(sys.argv).upper():
@@ -45,7 +46,6 @@ if "INSTALL" == mode:
     cwd = os.getcwd()
     print("Install/Upgrade Python Packages")
 
-    packages = ['gitpython']
     for package in packages:
         pip.main(['install', '--upgrade', package])
 
@@ -54,12 +54,15 @@ if "INSTALL" == mode:
         repo = git.Repo.init(cwd)
         result = repo.git.pull()
         print(result)
-    except git.exc.InvalidGitRepositoryError:
+    except:
         print("Downloading Files")
         repo = git.Repo.clone_from("https://github.com/Acer90/PI-WS2812-Server.git", cwd)
 
 elif "UPDATE" == mode:
     cwd = os.getcwd()
+
+    for package in packages:
+        pip.main(['install', '--upgrade', package])
 
     repo = git.Repo.init(cwd)
     for item in repo.index.diff(None):
