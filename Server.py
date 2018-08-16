@@ -4,6 +4,7 @@ import multiprocessing
 import time
 import socket
 import Settings
+import traceback
 from thread import *
 import RPi.GPIO as GPIO
 from Programs import *
@@ -96,7 +97,7 @@ def clientthread(conn):
                         Settings.POWER_STRIP = False
                     conn.sendall('OK')
                 if(parameters['cmd'] == 'set'):
-                    if(parameters['data'] == ''):
+                    if('data' not in parameters):
                         conn.sendall('ERROR_NO_DATA')
                         continue
 
@@ -104,7 +105,7 @@ def clientthread(conn):
                             Settings.thread_Programs.terminate()
                             time.sleep(0.1)
 
-                    color = ipsymcon.ReadColorData(str(parameters['data']))
+                    color = ipsymcon.ReadColordata(parameters['data'])
 
                     if('animation' in parameters): 
                         module = __import__('Animations')
@@ -152,8 +153,23 @@ def clientthread(conn):
                     
             else:
                 conn.sendall('ERROR')
-    except:
-        print ("Unexpected error:", sys.exc_info()[0], sys.exc_info()[1])
+    except BaseException as ex:
+        # Get current system exception
+        ex_type, ex_value, ex_traceback = sys.exc_info()
+
+        # Extract unformatter stack traces as tuples
+        trace_back = traceback.extract_tb(ex_traceback)
+
+        # Format stacktrace
+        stack_trace = list()
+
+        for trace in trace_back:
+            stack_trace.append("File : %s , Line : %d, Func.Name : %s, Message : %s" % (trace[0], trace[1], trace[2], trace[3]))
+
+        print("Exception type : %s " % ex_type.__name__)
+        print("Exception message : %s" % ex_value)
+        print("Stack trace : %s" % stack_trace)
+
         pass
 
 def worker(num):

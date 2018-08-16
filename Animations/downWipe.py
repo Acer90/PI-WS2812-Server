@@ -20,7 +20,7 @@ def downWipe(config):
         speed = 500
 
     wait_ms = float(speed / Settings.STRIP.numPixels())
-    colordata = ipsymcon.ReadColorData(str(config['data']))
+    colordata = ipsymcon.ReadColorData(config['data'])
         
     for i in range(Settings.STRIP.numPixels(), -1, -1):
         if(i in colordata):

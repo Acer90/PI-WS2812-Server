@@ -19,7 +19,7 @@ def upWipe (config, strip):
         speed = 500
 
     wait_ms = float(speed / strip.numPixels())
-    colordata = ipsymcon.ReadColorData(str(config['data']))
+    colordata = ipsymcon.ReadColorData(config['data'])
         
     for i in range(strip.numPixels()):
         if(i in colordata):

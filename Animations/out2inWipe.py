@@ -21,7 +21,7 @@ def out2inWipe (config, strip):
         speed = 500
 
     wait_ms = float(speed / (strip.numPixels() / 2))
-    colordata = ipsymcon.ReadColorData(str(config['data']))
+    colordata = ipsymcon.ReadColorData(config['data'])
 
     if strip.numPixels() % 2: #ungrade 
         half = (strip.numPixels() - 1) / 2

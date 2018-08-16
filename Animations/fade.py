@@ -21,7 +21,7 @@ def fade(config, strip):
 
     wait_ms = 10
     steps = float(speed / wait_ms)
-    colordata = ipsymcon.ReadColorData(str(config['data']))
+    colordata = ipsymcon.ReadColorData(config['data'])
     diflist = {}
 
     for i in range(Settings.STRIP.numPixels()):

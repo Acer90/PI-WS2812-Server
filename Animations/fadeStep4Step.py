@@ -23,7 +23,7 @@ def fadeStep4Step(config, strip):
 
     wait_ms = 50
     steps = float(speed / wait_ms)
-    colordata = ipsymcon.ReadColorData(str(config['data']))
+    colordata = ipsymcon.ReadColorData(config['data'])
     dif = 0
     diflist = {}
 

@@ -17,27 +17,19 @@ def RGBToColor(r, g, b):
     color = (r*256*256)+(g*256)+b
     return color
 
-def ReadColorData(data):
+def ReadColordata(data):
     color = {}
-    if data.find(";") == -1:
-        color = ReadColorSingelData(data)
-    else:
-        sdata = data.split(';')
-        for value in sdata:
-            color.update(ReadColorSingelData(value))
-    return color
+    for singledata in data:
 
-def ReadColorSingelData(data):
-    color = {}   
-    if data.find(":") != -1:
-        sdata = data.split(':')
-        if sdata[0].find("-") != -1:
-            v2 = sdata[0].split('-')
-            for i in range(int(v2[0]), int(v2[1])):
-                if(i >= 0 and i < int(Settings.CONFIG.get('Strip', 'LED_COUNT'))):
-                    color.update({i:int(sdata[1])})
-        else:
-            if(int(sdata[0]) >= 0 and int(sdata[0]) < int(Settings.CONFIG.get('Strip', 'LED_COUNT'))):
-                color.update({int(sdata[0]):int(sdata[1])})
-              
+        colorcode = 0
+        from_led = 0
+        to_led = int(Settings.CONFIG.get('Strip', 'LED_COUNT'))
+
+        if ("color" in singledata): colorcode = singledata["color"]
+        if ("from" in singledata): from_led = singledata["from"]
+        if ("to" in singledata and singledata["to"] < int(Settings.CONFIG.get('Strip', 'LED_COUNT'))): to_led = singledata["to"]
+
+        for i in range(int(from_led), int(to_led)):
+            #print("led=" + str(i) + " | color=" + str(colorcode))
+            color.update({i: int(colorcode)})
     return color
