@@ -13,7 +13,7 @@ from Driver.lcddriver import lcd
 
 def fadeStep4Step(config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
-        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
+        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH)#an
     Settings.POWER_STRIP = True
 
     if('speed' in config): 

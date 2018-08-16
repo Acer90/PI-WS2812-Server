@@ -11,7 +11,7 @@ from Driver.lcddriver import lcd
 
 def in2outWipe(config, strip):
     if(not Settings.POWER_STRIP and int(Settings.CONFIG.get('Relais', 'GPIO'))> 0):
-        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH) # an 
+        GPIO.output(int(Settings.CONFIG.get('Relais', 'GPIO')), GPIO.HIGH)#an
     Settings.POWER_STRIP = True
 
     if('speed' in config): 
@@ -22,7 +22,7 @@ def in2outWipe(config, strip):
     wait_ms = float(speed / (strip.numPixels() / 2))
     colordata = ipsymcon.ReadColorData(config['data'])
 
-    if strip.numPixels() % 2: #ungrade 
+    if strip.numPixels() % 2:#ungrade
         half = (strip.numPixels() - 1) / 2
         startp = half
         startm = half
